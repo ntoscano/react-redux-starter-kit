@@ -14,6 +14,13 @@ const store = createStore((state = {validUrl:false, url:'', notes:[]}, action) =
         validUrl: false,
         url: ''
       }
+    case 'ADDNOTE':
+      var notes = state.notes.slice(0);
+      notes.splice(state.notes.length, 0, action.note);
+      return {
+        ...state,
+        notes: notes
+      }
     default: 
       return state;
   }

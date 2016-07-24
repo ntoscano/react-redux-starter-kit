@@ -12,6 +12,7 @@ class NoteTaker extends React.Component {
       storedNoted: this.store.getState().notes
     };
     this.store.subscribe(() => {
+      console.log(this.store.getState());
       this.setState(this.state);
     });
   }
@@ -20,8 +21,9 @@ class NoteTaker extends React.Component {
     this.setState({userInput: event.target.value});
   }
 
-  handleSubmit(data){
-    console.log(data, "#{#{#{#{#{#{#{#{#{#{#{#{}}}}}}}}}}}}");
+  handleSubmit(event){
+    event.preventDefault();
+    this.store.dispatch({type: 'ADDNOTE', note: this.state.userInput});
   }
 
   render() {
