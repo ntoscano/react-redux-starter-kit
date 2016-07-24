@@ -1,17 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
-import { useRouterHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import createStore from './store/createStore'
+import store from './store/store'
 import AppContainer from './containers/AppContainer'
 
 // ========================================================
 // Browser History Setup
 // ========================================================
-const browserHistory = useRouterHistory(createBrowserHistory)({
-  basename: __BASENAME__
-})
 
 // ========================================================
 // Store and History Instantiation
@@ -21,10 +15,6 @@ const browserHistory = useRouterHistory(createBrowserHistory)({
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
 const initialState = window.___INITIAL_STATE__
-const store = createStore(initialState, browserHistory)
-const history = syncHistoryWithStore(browserHistory, store, {
-  selectLocationState: (state) => state.router
-})
 
 // ========================================================
 // Developer Tools Setup
@@ -46,9 +36,6 @@ let render = (routerKey = null) => {
   ReactDOM.render(
     <AppContainer
       store={store}
-      history={history}
-      routes={routes}
-      routerKey={routerKey}
     />,
     MOUNT_NODE
   )

@@ -1,6 +1,6 @@
 import { createStore } from 'redux'
 
-const urlStore = createStore((state = {validUrl:false, url:''}, action) => {
+const store = createStore((state = {validUrl:false, url:'', notes:[]}, action) => {
   switch (action.type) {
     case 'VALIDURL': 
       return {
@@ -19,4 +19,4 @@ const urlStore = createStore((state = {validUrl:false, url:''}, action) => {
   }
 });
 
-export default urlStore;
+export default store;
