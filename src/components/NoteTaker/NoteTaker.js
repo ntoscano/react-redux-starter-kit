@@ -7,9 +7,11 @@ class NoteTaker extends React.Component {
     this.store = props.store;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
     this.state = {
       userInput: '',
-      storedNoted: this.store.getState().notes
+      storedNotes: this.store.getState().notes,
+      videoTime: "0:00"
     };
     this.store.subscribe(() => {
       console.log(this.store.getState());
@@ -23,7 +25,11 @@ class NoteTaker extends React.Component {
 
   handleSubmit(event){
     event.preventDefault();
-    this.store.dispatch({type: 'ADDNOTE', note: this.state.userInput});
+    this.store.dispatch({type: 'ADDNOTE', note: { note: this.state.userInput, time: this.state.videoTime}});
+  }
+
+  handleFocus(event){
+    this.setState({videoTime: "123"});
   }
 
   render() {
@@ -32,7 +38,8 @@ class NoteTaker extends React.Component {
       return (
         <div>
           <form onSubmit={this.handleSubmit}>
-            <textarea onChange={this.handleChange}></textarea>
+            <textarea onFocus={this.handleFocus} onChange={this.handleChange}></textarea>
+            <input placeholder={this.state.videoTime} />
             <button type="submit">Submit</button>
           </form>
         </div>

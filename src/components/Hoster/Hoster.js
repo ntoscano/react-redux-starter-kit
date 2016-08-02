@@ -1,6 +1,7 @@
 import React from 'react'
+import Youtube from 'react-youtube'
 
-class Hoster extends React.Component {
+class Hoster extends Youtube {
 
   constructor(props) {
     super(props);
@@ -11,13 +12,17 @@ class Hoster extends React.Component {
       url: this.store.getState().url,
       validUrl: this.store.getState().validUrl
     };
+
   }
 
   handleChange(event) {
     this.setState({userInput: event.target.value});
 
     if (event.target.value.search('^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$') === 0) {
-      this.setState(this.store.dispatch({type: 'VALIDURL', url: event.target.value.replace('watch?v=', 'embed/')}));
+      this.setState(this.store.dispatch({
+                            type: 'VALIDURL',
+                            url: event.target.value.replace('https://www.youtube.com/watch?v=', '')
+                          }));
     } else {
       this.store.dispatch({type: 'INVALIDURL'});
     }
@@ -28,7 +33,10 @@ class Hoster extends React.Component {
     if (this.store.getState().validUrl) {
       return (
         <div>
-          <iframe width="560" height="315" src={this.state.url} frameBorder="0" allowFullScreen></iframe>
+          <Youtube  width="560"
+                    height="315"
+                    videoId={this.state.url}>
+          </Youtube>
         </div>
       )
     } else {

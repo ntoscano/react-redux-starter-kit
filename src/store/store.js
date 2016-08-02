@@ -1,6 +1,11 @@
 import { createStore } from 'redux'
 
-const store = createStore((state = {validUrl:false, url:'', notes:[]}, action) => {
+const store = createStore((state = {
+                                    validUrl: false,
+                                    url: '',
+                                    notes: [],
+                                    videoTime: 0,
+                                    }, action) => {
   switch (action.type) {
     case 'VALIDURL': 
       return {
